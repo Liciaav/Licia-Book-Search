@@ -1,5 +1,14 @@
 import { signToken, AuthenticationError } from '../services/auth.js';
-import User from '../models/User.js'
+import User from '../models/User.js';
+
+interface BookInput {
+  bookId: string;
+  title: string;
+  authors: string[];
+  description: string;
+  image?: string;
+  link?: string;
+}
 
 export const resolvers = {
   Query: {
@@ -24,7 +33,7 @@ export const resolvers = {
       const token = signToken(user.username, user.email, user._id);
       return { token, user };
     },
-    saveBook: async (_: any, { input }: { input: Book }, context: any) => {
+    saveBook: async (_: any, { input }: { input: BookInput }, context: any) => {
       if (context.user) {
         return await User.findByIdAndUpdate(
           context.user._id,
