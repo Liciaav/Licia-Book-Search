@@ -29,13 +29,13 @@ const startApolloServer = async () => {
     }
   ));
 
-  if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../client/dist')));
+  // if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join( '../client/dist')));
 
     app.get('*', (_req: Request, res: Response) => {
-      res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+      res.sendFile(path.join( '../client/dist/index.html'));
     });
-  }
+  // }
 
   app.listen(PORT, () => {
     console.log(`API server running on port ${PORT}!`);
